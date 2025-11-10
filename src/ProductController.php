@@ -15,7 +15,7 @@ enum RequestTypes: string
 class ProductController
 {
 
-    private ProductGateway $productGatewaygateway; 
+    private ProductGateway $productGateway; 
 
 
     private function getValidationErrors(array $data)
@@ -48,7 +48,7 @@ class ProductController
 
     public function __construct(private ProductGateway $gateway)
     {
-        $this->productGatewaygateway = $gateway;
+        $this->productGateway = $gateway;
 
     }
 
@@ -114,6 +114,7 @@ class ProductController
         
         if ($id)
         {
+            echo("\n there is an ID present");
 
         $this->processResourceRequest($confirmedMethod, $id, $collectionSource, $userType);
 
@@ -150,7 +151,14 @@ class ProductController
         {
             if ($userType === UserTypes::Admin)
             {
-                $->processAdminRequest($method, $userType);   // priv function
+                $result = $this->productGateway->processAdminRequest($method, $userType);   // priv function
+
+                echo(json_encode($result));
+            }
+            else
+            {
+                http_response_code(403);
+                echo("You must have admin in order to access this.");
             }
         }
 

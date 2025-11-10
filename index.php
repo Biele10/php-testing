@@ -19,7 +19,7 @@
 
 	$request_type = $_SERVER["REQUEST_METHOD"];
 
-	if ( $parts[1] != "products" )
+	if ( $parts[1] != "products" and $parts[1] != "priv_products" )
 	{
 
 		http_response_code(404);
@@ -77,7 +77,7 @@
 
 	$controller = new ProductController($gateway);
 
-	$controller->processRequest($_SERVER["REQUEST_METHOD"], $id, $collectionSource);
+	$controller->processRequest($_SERVER["REQUEST_METHOD"], $id, $collectionSource, $userType);
 
 	// $controller now represents an object meaning it can have methods called from it, so you pass in the server request method as well as the id
 

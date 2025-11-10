@@ -169,7 +169,7 @@ class ProductGateway
 
     }
 
-    public function processAdminRequest(RequestTypes $method, UserTypes $userType)
+    public function processAdminRequest(RequestTypes $method, UserTypes $userType): array
     {
 
         if ($userType !== UserTypes::Admin)
@@ -179,6 +179,23 @@ class ProductGateway
         }
 
         $sql = "SELECT * FROM private_products";
+
+        $stmt = $this->conn->prepare($sql);
+
+        $stmt->execute();
+
+        $data = [];
+
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC))
+        {
+
+            $data[] = $row;
+
+
+        }
+
+        return $data;
+        
 
         
 
